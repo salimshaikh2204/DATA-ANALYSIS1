@@ -1,0 +1,4 @@
+mapper = pd.Series(index=old_c, name = "Country", data = ["Soviet Union", "East Germany", "Romania", "West Germany", "Czechoslovakia",
+                               "Yugoslavia", "Unified Team", "Unified Team of Germany", "Mixed teams", "Serbia",
+                              "Australasia", "Russian Empire", "Montenegro", "Trinidad and Tobago", "Bohemia", 
+                              "West Indies Federation", "Singapore", "Independent Olympic Participants"])
