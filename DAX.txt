@@ -1,0 +1,58 @@
+some salespeople belongs to 1,2,+ sales region
+
+sales regions can have mulitples salespeople 
+
+
+
+
+
+========================================================================================
+
+
+DAX FUNCTIONS
+
+CALCULATED TABLE
+@@@###############################
+Year = "FY" & YEAR('Date'[Date]) +  if(MONTH('Date'[Date])>6,1)
+CALCULATED COLUMNS = 
+
+Quarter = 'Date'[Year] & " Q" & IF(
+    MONTH('Date'[Date] )<=3,3,
+    IF(
+    MONTH('Date'[Date])>=6,4,
+    IF(
+        MONTH('Date'[Date])<=9,1,2
+    )
+)
+)
+
+=========================
+Month = FORMAT('Date'[Date],"yyyy MMM")
+
+=====================================================================
+
+-------------------
+CALCULATED MEASURES
+
+----------
+Order Lines = COUNTROWS(Sales)
+----------------------------
+Orders = DISTINCTCOUNT(Sales[SalesOrderNumber])
+==================================================================
+
+
+
+Sales % Group = DIVIDE(SUM(SalesT[Sales]),CALCULATE(SUM(SalesT[Sales]),
+REMOVEFILTERS(RegionT[Region])))
+---------------------------------------------------------
+
+Sales % Group1 = IF(ISINSCOPE(RegionT[Region]) || ISINSCOPE(RegionT[Country]),
+DIVIDE(SUM(SalesT[Sales]),
+CALCULATE(SUM(SalesT[Sales]),
+REMOVEFILTERS(RegionT[Region],RegionT[Country]))))
+------------------------------------------------------------------------
+running totals 
+Sales YTD =TOTALYTD(SUM(SalesT[Sales]),'Date'[Date],"6-30")
+------------------------------------------
+comparison of year
+Sales YOY Growth = CALCULATE(SUM(SalesT[Sales]),PARALLELPERIOD('Date'[Date],-12,MONTH))
