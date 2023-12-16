@@ -1,0 +1,19 @@
+
+
+--6 using between and 
+
+SELECT * FROM EMPLOYEES
+WHERE SALARY BETWEEN 10000 AND 20000; --always the  lower limit first, then higher limit
+
+
+--try to do the query by making the high limit first, no result
+SELECT * FROM EMPLOYEES
+WHERE SALARY BETWEEN 20000 AND 10000;
+
+
+-------------------------------------------------------------------------------------------------------------
+
+--7  using the in operator
+-- is also called as multiple or
+SELECT * FROM EMPLOYEES
+WHERE SALARY IN (10000, 25000,17000);--the order is not important

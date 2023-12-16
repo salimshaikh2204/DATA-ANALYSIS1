@@ -1,0 +1,59 @@
+
+
+--multiple-column subqueries
+
+select * from employees
+where first_name='John';
+
+/*display the details for the employees who are managed by the same manager and work
+in the same department as the employees with first name of "john"
+*/
+select * from employees
+where manager_id=108 and department_id=100
+and first_name<>'John'
+union all
+select * from employees
+where manager_id=100 and department_id=80
+and first_name<>'John'
+union all
+select * from employees
+where manager_id=123 and department_id=50
+and first_name<>'John';
+
+--this we call it pairwise comparision subquery
+-- Pairwise both condition must match
+-- where (manager_id,department_id) in  (select manager_id,department_id 
+
+
+select * from employees
+where (manager_id,department_id) in  (select manager_id,department_id 
+                                       from employees where first_name='John'
+                                       )
+and first_name<>'John';
+-----------
+
+select * from employees
+where first_name='John';
+
+/*display the details of the employees  
+who are managed by the same manager as the employees 
+with first name of "John" and work in the department as employees
+with first name  of "john"
+
+*/
+select * from employees
+where manager_id in (108,100,123)
+and department_id in (100,80,50)
+and first_name<>'John';
+
+--this we call nonpairwise comparision subquery 
+-- One of condition match
+select * from employees
+where manager_id in  (select manager_id 
+                      from employees where first_name='John'
+                      )
+and  department_id in  (select department_id 
+                        from employees where first_name='John'
+                        )
+and first_name<>'John';
+

@@ -1,0 +1,48 @@
+--we want to know what is non Equi joins
+--lets create the table, the creation of table will be discussed in details later 
+CREATE TABLE JOB_GRADES 
+(
+ GRADE_LEVEL VARCHAR2(3),
+ LOWEST_SAL NUMBER,
+ HIGHEST_SAL NUMBER
+ );
+
+--here we insert the records for this table 
+ insert into JOB_GRADES (GRADE_LEVEL, LOWEST_SAL,HIGHEST_SAL)
+ values ('A',1000, 2999);
+ insert into JOB_GRADES (GRADE_LEVEL, LOWEST_SAL,HIGHEST_SAL)
+ values ('B',3000, 5999);
+ insert into JOB_GRADES (GRADE_LEVEL, LOWEST_SAL,HIGHEST_SAL)
+ values ('C',6000, 9999);
+ insert into JOB_GRADES (GRADE_LEVEL, LOWEST_SAL,HIGHEST_SAL)
+ values ('D',10000, 14999);
+ insert into JOB_GRADES (GRADE_LEVEL, LOWEST_SAL,HIGHEST_SAL)
+ values ('E',15000, 24999);
+ insert into JOB_GRADES (GRADE_LEVEL, LOWEST_SAL,HIGHEST_SAL)
+ VALUES ('F',25000, 40000);
+ commit; 
+ 
+ select GRADE_LEVEL,LOWEST_SAL,HIGHEST_SAL
+ from job_grades;
+ 
+ Select employee_id,first_Name,Salary
+ from employees
+ order by 1
+ 
+ 
+ --this is the nonEquijoins, try to make join using another operators other than =
+ SELECT EMP.EMPLOYEE_ID, EMP.FIRST_NAME, EMP.SALARY, grades.grade_level
+ FROM
+ EMPLOYEES EMP ,
+ JOB_GRADES GRADES 
+ where EMP.salary between GRADES.lowest_sal and grades.highest_sal 
+ 
+ 
+ --- same as above 
+ 
+SELECT EMP.EMPLOYEE_ID, EMP.FIRST_NAME, EMP.SALARY, grades.grade_level
+ FROM
+ EMPLOYEES EMP ,
+ JOB_GRADES GRADES 
+ WHERE EMP.SALARY >= GRADES.LOWEST_SAL 
+ and EMP.SALARY<=grades.highest_sal 

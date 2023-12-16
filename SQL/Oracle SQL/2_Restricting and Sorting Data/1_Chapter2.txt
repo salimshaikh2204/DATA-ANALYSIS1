@@ -1,0 +1,59 @@
+--1 to select all the rows and columns in table
+
+SELECT * FROM EMPLOYEES;
+
+--2 to Limiting the Rows That Are Selected, we use WHERE and it come always after the FROM clause
+--first look to the manual
+SELECT * 
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID=90;
+
+SELECT * 
+FROM EMPLOYEES
+WHERE salary=24000;
+
+/* you should know when using the where 
+    Character strings and date values are enclosed with single quotation marks.
+    Character values are case-sensitive 
+    date values are format-sensitive.
+    The default date display format is DD-MON-RR
+*/
+
+--3 using where in char column 
+SELECT EMPLOYEE_ID, FIRST_NAME, last_name, JOB_ID
+FROM
+EMPLOYEES
+WHERE FIRST_NAME='Steven';
+
+SELECT EMPLOYEE_ID, FIRST_NAME, last_name, JOB_ID
+FROM
+EMPLOYEES
+WHERE FIRST_NAME='steven'; -- the data is Case sensitive
+
+--4 using where in date column
+SELECT * 
+FROM   employees
+WHERE  HIRE_DATE = '17-OCT-03' ;
+
+--5 using the comparison operators
+
+SELECT * FROM EMPLOYEES
+WHERE SALARY>=10000;
+
+SELECT * 
+FROM   employees
+WHERE  HIRE_DATE > '17-OCT-03' ;
+
+--- ????? 
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME>'Alberto';
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME>'Alberto'
+order by FIRST_NAME;
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME<'Alberto'
+order by FIRST_NAME;
+
+--for more info refer to https://docs.oracle.com/cd/B12037_01/server.101/b10759/sql_elements002.htm

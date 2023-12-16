@@ -1,0 +1,26 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--6 multiple rows subqery
+--should be used with ( in, any, all)
+--first lets do this query
+SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=90 ;
+
+--in ----------
+select EMPLOYEE_ID,first_name, last_name, salary
+FROM
+EMPLOYEES
+WHERE SALARY IN  ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=90 );
+-- this also can be like this in (24000,17000)
+
+--any ----------
+
+select EMPLOYEE_ID,first_name, last_name, salary
+FROM
+EMPLOYEES
+WHERE SALARY >=any ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=90 );
+                             
+---all------
+
+select EMPLOYEE_ID,first_name, last_name, salary
+FROM
+EMPLOYEES
+WHERE SALARY >=ALL  ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=90 );

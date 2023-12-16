@@ -1,0 +1,140 @@
+------- natural join ---------------------
+
+--natural join between DEPARTMENTS and LOCATIONS
+
+
+select * from departments
+
+select * from locations 
+
+
+SELECT 
+DEPARTMENT_ID,
+DEPARTMENT_NAME,
+city
+FROM
+DEPARTMENTS
+NATURAL JOIN LOCATIONS
+
+
+
+select Employee_ID,First_Name,Department_Id,Manager_ID from employees
+order by 1;
+
+select Department_Name,Department_ID,Manager_ID from departments;
+
+
+--IF YOU TRY TO MAKE NATURAL JOIN BETWEEN EMPLOYEES AND DEPARTMENTS
+-- it will join 2 columns DEPARTMENT_ID and  MANAGER_ID 
+
+SELECT 
+EMPLOYEE_ID , 
+FIRST_NAME, 
+DEPARTMENT_ID, 
+DEPARTMENT_NAME
+FROM EMPLOYEES
+NATURAL JOIN DEPARTMENTS
+order by EMPLOYEE_ID
+
+
+------------------------------------------------------------------------------------
+---------- part three retriving records with USING-------------------- 
+
+SELECT 
+EMPLOYEES.EMPLOYEE_ID , 
+EMPLOYEES.FIRST_NAME, 
+DEPARTMENT_ID, --note you can not prefix table name in the match column
+DEPARTMENTS.DEPARTMENT_NAME
+FROM EMPLOYEES join
+DEPARTMENTS
+USING(DEPARTMENT_ID) 
+ORDER BY EMPLOYEE_ID;
+
+----------------------------------------------------
+-- Best
+-- Part four creaing join with the ON clause, this is better than natural join and using---- 
+
+SELECT 
+EMPLOYEES.EMPLOYEE_ID , 
+EMPLOYEES.FIRST_NAME, 
+DEPARTMENTS.DEPARTMENT_ID, ---here prefix should be use 
+DEPARTMENTS.DEPARTMENT_NAME
+FROM EMPLOYEES join DEPARTMENTS
+ON (EMPLOYEES.DEPARTMENT_ID=DEPARTMENTS.DEPARTMENT_ID)
+-----where EMPLOYEE_ID=100
+ORDER BY EMPLOYEE_ID;
+
+-- you can wirte above query  as follow 
+-- old syntax not recommended
+SELECT 
+EMPLOYEES.EMPLOYEE_ID , 
+EMPLOYEES.FIRST_NAME, 
+EMPLOYEES.DEPARTMENT_ID, 
+DEPARTMENTS.DEPARTMENT_NAME
+FROM EMPLOYEES,
+DEPARTMENTS
+WHERE EMPLOYEES.DEPARTMENT_ID=DEPARTMENTS.DEPARTMENT_ID
+ORDER BY EMPLOYEE_ID;
+
+
+-- join 3 tables
+SELECT 
+EMP.EMPLOYEE_ID , 
+EMP.FIRST_NAME, 
+emp.DEPARTMENT_ID, 
+DEPT.DEPARTMENT_NAME,
+DEPT.location_id,
+loc.city
+FROM 
+EMPLOYEES EMP 
+join
+DEPARTMENTS DEPT
+on (EMP.DEPARTMENT_ID=DEPT.DEPARTMENT_ID )
+JOIN LOCATIONS LOC
+on ( DEPT.LOCATION_ID=LOC.LOCATION_ID)
+ORDER BY EMPLOYEE_ID;
+
+--old syntax
+
+SELECT 
+EMP.EMPLOYEE_ID , 
+EMP.FIRST_NAME, 
+emp.DEPARTMENT_ID, 
+DEPT.DEPARTMENT_NAME,
+DEPT.location_id,
+loc.city
+FROM 
+EMPLOYEES EMP ,
+DEPARTMENTS DEPT,
+locations loc
+WHERE EMP.DEPARTMENT_ID=DEPT.DEPARTMENT_ID
+AND DEPT.LOCATION_ID=LOC.LOCATION_ID
+ORDER BY EMPLOYEE_ID;
+
+
+-----------------------------------------------------------------
+
+--also you can  make self join by ( ON )
+SELECT 
+worker.EMPLOYEE_ID, 
+WORKER.FIRST_NAME, 
+WORKER.MANAGER_ID,
+manager.first_name
+FROM 
+EMPLOYEES WORKER join
+EMPLOYEES MANAGER
+on( WORKER.MANAGER_ID=MANAGER.EMPLOYEE_ID);
+
+-- old syntax NOT Recommended
+SELECT 
+worker.EMPLOYEE_ID, 
+WORKER.FIRST_NAME, 
+WORKER.MANAGER_ID,
+manager.first_name
+FROM 
+EMPLOYEES WORKER,
+EMPLOYEES MANAGER
+WHERE WORKER.MANAGER_ID=MANAGER.EMPLOYEE_ID;
+
+
+

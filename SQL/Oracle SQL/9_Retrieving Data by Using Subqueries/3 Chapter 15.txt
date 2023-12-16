@@ -1,0 +1,44 @@
+
+select * from employees order by 1;
+
+select DISTINCT manager_id from  employees;
+
+-- print all Managers 
+
+
+SELECT employee_id, last_name, job_id, department_id  FROM	employees outer
+WHERE Exists ( 
+                SELECT 'X' FROM	employees  
+                WHERE	manager_id = outer.employee_id
+              );
+              
+             
+-- print all employee who are not manager
+              
+SELECT employee_id, last_name, job_id, department_id  FROM	employees outer
+WHERE Not Exists ( 
+                SELECT 'X' FROM	employees  
+                WHERE	manager_id = outer.employee_id
+              );
+              
+              
+select * from  employees where manager_id = 203;
+
+
+
+------------------------------------------------------------
+
+-- Find All Departments That Do Not Have Any  Employees
+
+
+SELECT department_id, department_name  FROM departments d
+WHERE NOT EXISTS (SELECT 'X' 
+                    from employees
+                    where department_id = d.department_id);
+                    
+                    
+--display all the departments that have employees
+select * from departments d
+where exists (select 1 from employees e where e.department_id=d.department_id)
+
+

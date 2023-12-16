@@ -1,0 +1,38 @@
+
+
+--9 using is null operator
+
+select first_name, COMMISSION_PCT
+from EMPLOYEES;
+
+--let us try to pick all the employes who doesnt have commesion
+SELECT * 
+FROM EMPLOYEES
+where COMMISSION_PCT is null; --dont use COMMISSION_PCT=' ' because this not correct 
+
+SELECT * 
+FROM EMPLOYEES
+where COMMISSION_PCT=null;-- this is not correct 
+
+--10 using not
+--you can use also not like, not in , is not null , not between  and 
+
+SELECT * 
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID NOT IN (100, 101);
+
+SELECT * 
+FROM EMPLOYEES
+where COMMISSION_PCT is not null;
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME not LIKE 'S%'; --ALL THE FIRST NAME which not sart with S
+
+-----the next 2 queries the same
+select * 
+from employees
+where DEPARTMENT_ID<>50;
+
+select * 
+from employees
+where DEPARTMENT_ID !=50;

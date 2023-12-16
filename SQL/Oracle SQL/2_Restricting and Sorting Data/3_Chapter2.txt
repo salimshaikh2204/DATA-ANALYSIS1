@@ -1,0 +1,37 @@
+
+
+/*8 using the like operator and it come usualy with _ and %
+% mean zero or more characters
+_ mean one character
+*/
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME LIKE 'S%'; --ALL THE FIRST NAME which sart with S
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '%s'; --ALL THE FIRST NAME which end  with s
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '%am%'; --ALL THE FIRST NAME which include am 
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '_d%';-- the first_name which has d in second letter
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '__s%';-- the first_name which has s in third letter
+
+--now supose there is value in any column contain _  or %  ( example job_id)
+--then how you will search for theses Letters
+--example i need all the job_id which contain the string SA_
+
+--this will pick all the job_id contain SA followed by any character 
+SELECT JOB_ID 
+FROM
+JOBS
+WHERE JOB_ID LIKE 'SA_%'; 
+
+--this is the correct select 
+SELECT JOB_ID 
+FROM
+JOBS
+WHERE JOB_ID LIKE 'SA/_%' escape '/';

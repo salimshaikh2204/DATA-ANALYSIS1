@@ -1,0 +1,56 @@
+--using subquery
+
+--1 who has salary > Abel's  Salary, note assume Abel is the last name
+
+--so you need to now Abel's  Salary
+SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME='Abel';
+
+--then make the query like this 
+select EMPLOYEE_ID,first_name, last_name, salary
+FROM
+EMPLOYEES
+WHERE SALARY> ( SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME='Abel' );
+
+--you can make the subquery on left side, but this is not recomnded
+select EMPLOYEE_ID,first_name, last_name, salary
+FROM
+EMPLOYEES
+WHERE (SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME='Abel' )<SALARY
+
+--2 when using single-row operator, then the subquery should return also single row
+--single-row operator ( =, >,<, >=,<=, <>, != )
+SELECT * FROM 
+employees
+WHERE JOB_ID=( SELECT JOB_ID FROM EMPLOYEES WHERE LAST_NAME='Abel' );
+
+--THIS select will give error 'single-row subquery returns more than one row'
+SELECT * FROM 
+EMPLOYEES
+WHERE SALARY>( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID =30 );
+
+SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID =30;
+
+--3  using group function is subquery
+--i want the employee who has the highest salary
+
+SELECT * FROM
+EMPLOYEES
+WHERE SALARY=(SELECT MAX(SALARY) FROM EMPLOYEES );
+
+--4 subquery in having
+SELECT DEPARTMENT_ID , COUNT(EMPLOYEE_ID)
+FROM
+EMPLOYEES
+GROUP BY DEPARTMENT_ID
+HAVING  COUNT(EMPLOYEE_ID)> (SELECT COUNT(1) 
+                             FROM EMPLOYEES
+                             WHERE DEPARTMENT_ID=90 );
+                             
+--5 if the subquery return no row, then all select return no rows
+select EMPLOYEE_ID,first_name, last_name, salary
+FROM
+EMPLOYEES
+WHERE SALARY> ( SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME='dddd' );
+
+
+

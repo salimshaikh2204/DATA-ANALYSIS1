@@ -1,0 +1,45 @@
+--11  Defining Conditions Using the Logical Operators ( and/ or /  not )
+
+--AND requires both the component conditions to be true
+SELECT employee_id, last_name, job_id, salary, DEPARTMENT_ID
+FROM   employees
+WHERE  SALARY >= 10000
+AND    DEPARTMENT_ID=90;
+
+--OR requires either component condition to be true
+SELECT employee_id, last_name, job_id, salary, DEPARTMENT_ID
+FROM   employees
+WHERE  SALARY >= 10000
+or    DEPARTMENT_ID=90;
+
+---let's SEE THIS 3 AND
+SELECT employee_id, last_name, job_id, salary, DEPARTMENT_ID,COMMISSION_PCT
+FROM   employees
+WHERE  SALARY > 2000
+AND    DEPARTMENT_ID in (60,90)
+and COMMISSION_PCT is null
+
+
+--here you should know  the priorities
+--look to manual hint 
+--in this select there are 2 conditions
+--first condition  JOB_ID = 'AD_PRES' and SALARY > 15000
+--second condition JOB_ID = 'SA_REP'
+--10+5*5 =
+
+SELECT last_name, job_id, salary
+FROM   employees
+WHERE  JOB_ID = 'SA_REP'
+OR     JOB_ID = 'AD_PRES' AND    SALARY > 15000;
+
+-- the query above and this query is the same  
+SELECT last_name, job_id, salary
+FROM   employees
+WHERE  JOB_ID = 'SA_REP'
+OR     (JOB_ID = 'AD_PRES' AND    SALARY > 15000);
+
+--when you use the parantheses () , then you can override and/or priorities
+SELECT last_name, job_id, salary
+FROM   EMPLOYEES
+WHERE  (job_id = 'SA_REP' OR     job_id = 'AD_PRES')
+AND    SALARY > 15000;
